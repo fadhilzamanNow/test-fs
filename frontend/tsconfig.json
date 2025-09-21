@@ -4,13 +4,15 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
+  "include": [
+    "./typed-router.d.ts","src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"
+  ],
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*" : ["./src/*"]
     },
     "types":["unplugin-vue-router/client"]
   },
-  "include": [
-    "./typed-router.d.ts"
-  ]
+  
 }

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Label } from '../../components/ui/label';
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
+
 import { RouterLink } from 'vue-router';
 import { Select,SelectTrigger,SelectContent, SelectValue,SelectGroup, SelectItem } from '../../components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const roleItems : string[] = ["Manager", "Staff"]
 const moduleItems : string[] = ["PPIC", "Produksi"]

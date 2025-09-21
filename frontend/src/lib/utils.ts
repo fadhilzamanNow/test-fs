@@ -14,4 +14,4 @@ export interface ItemTypes {
     mode : modeType
 }
 
-export type modeType = "prod" | "prodplan"  
+export type modeType = "product" | "product-plan"  

@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { Label } from '../../components/ui/label';
-import { Input } from '../../components/ui/input';
-import { Button } from '../../components/ui/button';
-import { RouterLink } from 'vue-router';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { provide, ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+
+const path = useRoute()
+
+console.log(path.name)
+
 </script>
 
 <template>
