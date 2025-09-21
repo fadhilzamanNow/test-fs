@@ -4,8 +4,6 @@ import { inject, provide, ref, toRef } from 'vue';
 import { ItemTypes, modeType } from '@/lib/utils';
 import SidebarItem from './SidebarItem.vue';
 
-
-
 const sidebarItemList : ItemTypes[] = [
     {label : "Product", icon : Icon, name : "lucide:boxes", mode : "product" },
     {label : "Production Plan", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"}

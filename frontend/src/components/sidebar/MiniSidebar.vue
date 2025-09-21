@@ -12,11 +12,13 @@ const sidebarItemList : ItemTypes[] = [
     {label : "Production Plan", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"}
 ];
 
+const miniExpand = toRef(inject("miniExpand"))
+
 
 </script>
 
 <template>
-    <aside :class="['fixed bg-white h-screen z-100 block sm:hidden transition-all', expand ? 'w-3/4 visible opacity-100' : 'w-0 invisible opacity-0']">
+    <aside :class="['fixed bg-white h-screen z-100 block sm:hidden transition-all', miniExpand ? 'w-3/4 visible opacity-100' : 'w-0 invisible opacity-0']">
           <nav class="h-full flex flex-col bg-white border-r shadow-sm">
                 <ul class="flex-1 px-3">
                     <SidebarItem v-for="(item,i) in sidebarItemList" :key="i" :label="item.label" :icon="item.icon" :name="item.name" :mode="item.mode"  />

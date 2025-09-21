@@ -11,9 +11,10 @@ import { useRoute } from 'vue-router';
 
 const expand = ref<boolean>(false)
 const selectedMode = ref<modeType>("product")
-
+const miniExpand = ref<boolean>(false);
 provide("selected", selectedMode)
 provide("expand", expand)
+provide("miniExpand", miniExpand)
 
 </script>
 

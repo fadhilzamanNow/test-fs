@@ -2,50 +2,41 @@
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext } from '@/components/ui/pagination';
-import CreateProduct from '../dialog/CreateProduct.vue';
-
-const tableHead = ["No", "Nama Produk", "Aksi"];
-
-interface productData {
-    num : number,
-    id : string,
-    name : string
-}
-
-const tableData : productData[] = [
-    {num : 1, id : "axc", name : "Kotak"},
-    {num : 2, id: "asdasda", name : "Sesuatu"},
-    {num : 1, id : "axc", name : "Kotak"},
-    {num : 2, id: "asdasda", name : "Sesuatu"},
-    {num : 1, id : "axc", name : "Kotak"},
-    {num : 2, id: "asdasda", name : "Sesuatu"},
-    {num : 1, id : "axc", name : "Kotak"},
-   
+import { Icon } from '@iconify/vue';
+import { productData } from '@/lib/utils';
+import ProductDetail from '../dialog/ProductDetail.vue';
+import ProductUpdate from '../dialog/ProductUpdate.vue';
+import ProductDelete from '../dialog/ProductDelete.vue';
 
 
-]
 
+defineProps<{title : string}>()
 </script>
 
 <template>
+    <div class="h-full flex flex-col gap-4">
+        <div class="flex justify-start w-full  p-4 px-10 border-b-gray-200 border-b ">
+            <h1 class="text-2xl font-semibold">
+                {{ title }}
+            </h1>
+        </div>
     <div class="px-10 flex flex-col  gap-10  flex-1">
     <div class="flex justify-between gap-2">
-            <Input placeholder="Cari Produk" class="max-w-80" />
-            <CreateProduct />
+        <div class="relative w-max ">
+            <Input :placeholder="`Cari ` + title" class="max-w-80" />
+            <Icon icon="mdi:magnify" class=" absolute text-black/20 top-1/2 -translate-y-1/2 right-2 text-xl" />
+        </div>
+        <slot name="create"></slot>
     </div>
       <div class="flex-1 py-4 flex flex-col justify-between">
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableHead v-for="(item,i) in tableHead" :key="i" :class="['font-bold max-w-max']">{{ item }}</TableHead>
+                    <slot name="tablehead"></slot>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="item in tableData" :key="item.id" >
-                    <TableCell>{{ item.num }}</TableCell>
-                    <TableCell>{{ item.name }}</TableCell>
-                    <TableCell>action</TableCell>
-                </TableRow>
+                <slot name="tablebody"></slot>
             </TableBody>
         </Table>
         <Pagination v-slot="{page}" :items-per-page="10" :total="30" :default-page="1">
@@ -56,9 +47,8 @@ const tableData : productData[] = [
                 </template>
                 <PaginationNext />
             </PaginationContent>
-
-
         </Pagination>
+    </div>
     </div>
     </div>
 </template>

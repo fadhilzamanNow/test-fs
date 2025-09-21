@@ -14,4 +14,10 @@ export interface ItemTypes {
     mode : modeType
 }
 
+export interface productData {
+    num : number,
+    id : string,
+    name : string,
+}
+
 export type modeType = "product" | "product-plan"  
