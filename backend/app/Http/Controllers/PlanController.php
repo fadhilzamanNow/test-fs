@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderLog;
 use App\Models\ProductPlan;
 use App\Models\PlanLog;
 use Illuminate\Http\Request;
@@ -124,39 +126,64 @@ public function show(string $id)
     }
 
     // PATCH /plans/{id}/status
-    public function changeStatus(Request $request, string $id)
-    {
-        $plan = ProductPlan::findOrFail($id);
+   public function changeStatus(Request $request, string $id)
+{
+    $plan = ProductPlan::findOrFail($id);
 
-        $data = $request->validate([
-            'status' => 'required|in:pending,approved,rejected',
-            'note'   => 'nullable|string'
+    $data = $request->validate([
+        'status' => 'required|in:pending,approved,rejected',
+        'note'   => 'nullable|string'
+    ]);
+
+    $from = $plan->status;
+    $to   = $data['status'];
+    $userId = $request->get('auth_user')['id'] ?? null;
+
+    if ($from !== $to) {
+        $update = ['status' => $to];
+
+        // If approved, set due date if missing
+        if ($to === 'approved' && !$plan->due_date) {
+            $update['due_date'] = now()->addDays(7)->toDateString();
+        }
+
+        $plan->update($update);
+
+        // log plan change
+        PlanLog::create([
+            'plan_id'     => $plan->id,
+            'from_status' => $from,
+            'to_status'   => $to,
+            'changed_by'  => $userId,
+            'note'        => $data['note'] ?? null,
+            'created_at'  => now(),
         ]);
 
-        $from = $plan->status;
-        $to   = $data['status'];
+        // ✅ Create Order + OrderLog when plan is approved
+        if ($to === 'approved') {
+            $order = Order::firstOrCreate(
+                ['plan_id' => $plan->id],
+                [
+                    'status'     => 'waiting',
+                    'due_date'   => now()->addDays(7)->toDateString(),
+                    'created_by' => $userId,
+                    'created_at' => now(),
+                ]
+            );
 
-        if ($from !== $to) {
-            $plan->update(['status' => $to]);
-
-            if ($to === 'approved' && !$plan->due_date) {
-            $updateData['due_date'] = now()->addDays(7)->format('Y-m-d');
-        }
-
-        $plan->update($updateData);
-
-            PlanLog::create([
-                'plan_id'     => $plan->id,
-                'from_status' => $from,
-                'to_status'   => $to,
-                'changed_by'  => $request->get('auth_user')['id'] ?? null,
-                'note'        => $data['note'] ?? null,
-                'created_at'  => now(),
+            OrderLog::create([
+                'order_id'   => $order->id,
+                'from_status'=> null,
+                'to_status'  => 'waiting',
+                'changed_by' => $userId,
+                'note'       => 'Order created from approved plan',
+                'created_at' => now(),
             ]);
         }
-
-        return response()->json($plan);
     }
+
+    return response()->json($plan->fresh());
+}
 
     // DELETE /plans/{id}
     public function destroy(string $id)

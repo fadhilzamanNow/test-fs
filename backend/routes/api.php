@@ -39,31 +39,23 @@ use App\Http\Controllers\LookupController;
        
 
 
-        //order produksi
-        Route::get('/orders',        [OrderController::class, 'index']); 
-        Route::post('/orders',       [OrderController::class, 'store']);  
-        Route::get('/orders/{id}',   [OrderController::class, 'show']);
-        Route::patch('/orders/{id}', [OrderController::class, 'update']);
-        Route::delete('/orders/{id}',[OrderController::class, 'destroy']);
+    Route::prefix('/orders')->group(function () {
+    // list all orders with pagination + search
+    Route::get('/', [OrderController::class, 'index']);
 
-        //status order produksi
-        Route::post('/orders/{id}/start',    [OrderController::class, 'start']);     
-        Route::post('/orders/{id}/pause',    [OrderController::class, 'pause']);     
-        Route::post('/orders/{id}/resume',   [OrderController::class, 'resume']);    
-        Route::post('/orders/{id}/complete', [OrderController::class, 'complete']);  
-        Route::post('/orders/{id}/handover', [OrderController::class, 'handover']);  
+    // get detail of single order (with logs, creator, plan, etc.)
+    Route::get('/{id}', [OrderController::class, 'show']);
 
+    // change status of order (logs written automatically)
+    Route::post('/{id}/status', [OrderController::class, 'updateStatus']);
+});
 
-        //log order produksi
-        Route::get('/orders/{id}/logs',       [OrderLogController::class, 'index']);
-        Route::post('/orders/{id}/logs',      [OrderLogController::class, 'store']);
-        Route::get('/orders/{id}/logs/{logId}', [OrderLogController::class, 'show']);
-        Route::patch('/orders/{id}/logs/{logId}',[OrderLogController::class, 'update']);
-        Route::delete('/orders/{id}/logs/{logId}',[OrderLogController::class, 'destroy']);
+Route::prefix('/order-logs')->group(function () {
+    // list logs (optional: filter by order_id)
+    Route::get('/', [OrderLogController::class, 'index']);
 
-
-
-        Route::get('/plans/{id}/status-history',  [PlanController::class, 'statusHistory']);
-        Route::get('/orders/{id}/status-history', [OrderController::class, 'statusHistory']);
+    // get detail of a single log
+    Route::get('/{id}', [OrderLogController::class, 'show']);
+});
     });
 
