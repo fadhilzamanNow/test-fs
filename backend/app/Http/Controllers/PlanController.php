@@ -24,6 +24,39 @@ class PlanController extends Controller
         return response()->json($query->paginate($perPage));
     }
 
+    public function store(Request $request)
+{
+    $data = $request->validate([
+        'plan_name'  => 'required|string|max:100',    // or use plan_no if you really have it
+        'product_id' => 'required|uuid|exists:products,id',
+        'quantity'   => 'required|integer|min:1',
+        'due_date'   => 'nullable|date',              // make column nullable in migration
+    ]);
+
+    $plan = ProductPlan::create([
+        'plan_name'  => $data['plan_name'],
+        'product_id' => $data['product_id'],
+        'quantity'   => $data['quantity'],
+        'status'     => 'pending',                    // force initial status
+        'due_date'   => $data['due_date'] ?? null,    // ok if column nullable
+        'created_at' => now(),                        // ensure in $fillable
+        'created_by' => $request->get('auth_user')['id'] ?? null, // if you added created_by
+    ]);
+
+    // initial log (avoid NULL if from_status is NOT NULL)
+    PlanLog::create([
+        'plan_id'     => $plan->id,
+        'from_status' => 'pending',                   // not null-safe
+        'to_status'   => 'pending',
+        'changed_by'  => $plan->created_by,
+        'note'        => 'Plan created',
+        'created_at'  => $plan->created_at,
+    ]);
+
+    return response()->json($plan, 201);
+}
+
+
     // GET /plans/{id}
 public function show(string $id)
 {
@@ -43,6 +76,7 @@ public function show(string $id)
         'status'     => $plan->status,
         'due_date'   => $plan->due_date?->format('Y-m-d'),
         'created_at' => $plan->created_at,
+        'quantity' => $plan->quantity,
         'created_by' => $plan->createdBy ? [
             'id'       => $plan->createdBy->id,
             'username' => $plan->createdBy->username,
@@ -104,6 +138,12 @@ public function show(string $id)
 
         if ($from !== $to) {
             $plan->update(['status' => $to]);
+
+            if ($to === 'approved' && !$plan->due_date) {
+            $updateData['due_date'] = now()->addDays(7)->format('Y-m-d');
+        }
+
+        $plan->update($updateData);
 
             PlanLog::create([
                 'plan_id'     => $plan->id,

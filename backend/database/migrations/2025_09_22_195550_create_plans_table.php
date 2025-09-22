@@ -18,8 +18,8 @@ return new class extends Migration
 
             // enum: pending, approved, rejected
             $table->enum('status', ['pending','approved','rejected'])->default('pending');
-
-            $table->date('due_date');
+            $table->integer("quantity");
+            $table->date('due_date')->nullable();
             $table->timestamp('created_at');
 
             $table->foreign('product_id')

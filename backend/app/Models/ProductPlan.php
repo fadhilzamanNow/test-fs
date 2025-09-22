@@ -22,7 +22,8 @@ class ProductPlan extends Model
         'due_date',
         'created_at',
         'created_by',
-        'plan_name'
+        'plan_name',
+        "quantity"
     ];
 
     protected $casts = [

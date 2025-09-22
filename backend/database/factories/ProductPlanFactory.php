@@ -19,6 +19,7 @@ class ProductPlanFactory extends Factory
             'due_date'   => $this->faker->dateTimeBetween('+3 days', '+1 month')->format('Y-m-d'),
             'created_at' => now(),
             'created_by' => \App\Models\User::inRandomOrder()->value('id') ?? \App\Models\User::factory(),
+            'quantity' =>  random_int(1,20)
         ];
     }
 }
