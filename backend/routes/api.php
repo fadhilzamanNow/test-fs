@@ -10,7 +10,6 @@ use App\Http\Controllers\OrderLogController;      // production logs
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LookupController;
 
-
     Route::prefix('auth')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login',    [AuthController::class, 'login']);
@@ -20,7 +19,6 @@ use App\Http\Controllers\LookupController;
     Route::middleware('jwt')->group(function () {
         // auth
         Route::get('/auth/me',     [AuthController::class, 'me']);
-        Route::post('/auth/logout',[AuthController::class, 'logout']); 
 
         // produk
         Route::get('/products',        [ProductController::class, 'index']);   
@@ -35,11 +33,10 @@ use App\Http\Controllers\LookupController;
         Route::get('/plans/{id}',   [PlanController::class, 'show']);
         Route::patch('/plans/{id}', [PlanController::class, 'update']);
         Route::delete('/plans/{id}',[PlanController::class, 'destroy']);
+        Route::patch('/plans/{id}/status',[PlanController::class, 'changeStatus']);
 
 
-        Route::post('/plans/{id}/submit',  [PlanController::class, 'submit']);  
-        Route::post('/plans/{id}/approve', [PlanController::class, 'approve']);  
-        Route::post('/plans/{id}/reject',  [PlanController::class, 'reject']);  
+       
 
 
         //order produksi

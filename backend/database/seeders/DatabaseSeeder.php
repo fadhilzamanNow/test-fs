@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\PlanLog;
+use App\Models\ProductPlan;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]); */
         $this->call([
-            ModuleSeeder::class, RoleSeeder::class,UserSeeder::class, ProductSeeder::class
+            ModuleSeeder::class, RoleSeeder::class,UserSeeder::class, ProductSeeder::class, ProductPlanSeeder::class
         ]);
     
     }
