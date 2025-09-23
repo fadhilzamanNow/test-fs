@@ -6,10 +6,9 @@ DATABASE : POSTGRESQL
 [DATABASE ERD]
 <img width="1609" height="489" alt="image" src="https://github.com/user-attachments/assets/839bedcc-229f-485c-8880-db73418773bc" />
 
-[FOLDER (DEMO APLIKASI | DUMPPOSTGRESQL | TAMPILAN HALAMAN | ERD](<img width="1878" height="911" alt="image" src="https://github.com/user-attachments/assets/d648fb80-de9d-461d-9ca1-512ce9b3f22e" />
-)
+[FOLDER (DEMO APLIKASI | DUMPPOSTGRESQL | TAMPILAN HALAMAN | ERD](https://drive.google.com/drive/folders/1HflWwklw977MKbrnnwiqt8ckF13yyw7f?usp=sharing)
 
-[OUTPUT POSTGRESQL DUMP]([https://drive.google.com/file/d/1pZ7tLhb0LUWixo-5Rcm-VRNQZX2YTndy/view?usp=sharing](https://drive.google.com/drive/folders/1HflWwklw977MKbrnnwiqt8ckF13yyw7f?usp=sharing))
+
 
 CARA PENGGUNAAN:
 1. git clone https://github.com/fadhilzamanNow/test-fs.git
