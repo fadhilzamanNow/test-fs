@@ -15,6 +15,14 @@ class OrderLog extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    public function order() { return $this->belongsTo(Order::class, 'order_id'); }
+    public function order()
+{
+    return $this->belongsTo(Order::class);
+}
     public function changer() { return $this->belongsTo(User::class, 'changed_by'); }
+    public function plan()
+    {
+        return $this->belongsTo(ProductPlan::class, 'plan_id');
+    }
+    
 }

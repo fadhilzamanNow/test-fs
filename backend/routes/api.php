@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderController;         // production orders
 use App\Http\Controllers\OrderLogController;      // production logs
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LookupController;
+use App\Http\Controllers\PlanLogController;
 
     Route::prefix('auth')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
@@ -55,5 +56,12 @@ Route::prefix('/order-logs')->group(function () {
     // get detail of a single log
     Route::get('/{id}', [OrderLogController::class, 'show']);
 });
+
+
+Route::get('/plan-logs', [PlanLogController::class, 'index']);
+Route::get('/plan-logs/{id}', [PlanLogController::class, 'show']);
+
     });
+
+
 

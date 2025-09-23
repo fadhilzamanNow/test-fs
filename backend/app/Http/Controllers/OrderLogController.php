@@ -10,13 +10,27 @@ class OrderLogController extends Controller
     public function index(Request $request)
     {
         $orderId = $request->query('order_id');
-        $query = OrderLog::with('changer');
+        $search = $request->query('q');
+
+        $query = OrderLog::with([
+            'changer',
+            'order.plan',  // eager load plan
+        ]);
 
         if ($orderId) {
             $query->where('order_id', $orderId);
         }
 
-        return response()->json($query->orderByDesc('created_at')->paginate(15));
+        if ($search) {
+            $like = "%{$search}%";
+            $query->whereHas('order.plan', function ($q) use ($like) {
+                $q->where('plan_name', 'ILIKE', $like);
+            });
+        }
+
+        return response()->json(
+            $query->orderByDesc('created_at')->paginate(7)
+        );
     }
 
     public function show(string $id)
