@@ -27,7 +27,7 @@ defineProps<{title : string}>()
         </AlertDialogDescription>
       <AlertDialogFooter>
         <AlertDialogCancel>Tutup</AlertDialogCancel>
-        <AlertDialogAction class="bg-red-500 hover:bg-red-500/60">Hapus</AlertDialogAction>
+          <slot name="send"></slot>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>

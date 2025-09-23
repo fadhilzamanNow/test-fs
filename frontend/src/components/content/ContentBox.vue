@@ -102,7 +102,7 @@ function goTo(p: number) {
           />
           <Icon
             icon="mdi:magnify"
-            class="absolute text-black/20 top-1/2 -translate-y-4/6 right-2 text-xl pointer-events-none"
+            class="absolute text-black/20 top-1/2 -translate-y-1/2 right-2 text-xl pointer-events-none"
           />
         </div>
 

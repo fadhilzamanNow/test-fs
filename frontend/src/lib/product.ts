@@ -61,7 +61,7 @@ export async function updateProduct(
 
 export async function deleteProduct(id: string | number) {
   try {
-    const { data } = await http.delete(`/api/products/${id}`)
+    const { data } = await http.delete(`/products/${id}`)
     return data
   } catch (err: any) {
     console.error('Failed to delete product:', err)

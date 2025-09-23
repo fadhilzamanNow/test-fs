@@ -70,7 +70,7 @@ watchEffect(() => {
                     <TableCell class="flex gap-2">
                             <ProductDetail :product="item" />
                             <ProductUpdate :product="item" @updated="fetchProducts" />
-                            <ProductDelete :product="item" />
+                            <ProductDelete :product="item" @deleted="fetchProducts" />
                     </TableCell>
                 </TableRow>
           </template>
