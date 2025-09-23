@@ -3,6 +3,7 @@ import { ItemTypes } from '@/lib/utils';
 import { Icon } from '@iconify/vue';
 import SidebarItem from './SidebarItem.vue';
 import { inject, toRef, watchEffect } from 'vue';
+import { useUser } from '@/store/user';
 
 
 
@@ -13,7 +14,7 @@ const sidebarItemList : ItemTypes[] = [
 ];
 
 const miniExpand = toRef(inject("miniExpand"))
-
+const userInfo = useUser().user.value
 
 </script>
 
@@ -23,6 +24,10 @@ const miniExpand = toRef(inject("miniExpand"))
                 <ul class="flex-1 px-3">
                     <SidebarItem v-for="(item,i) in sidebarItemList" :key="i" :label="item.label" :icon="item.icon" :name="item.name" :mode="item.mode"  />
                 </ul>
+                <div :class="['transition-all overflow-hidden ', miniExpand ? 'w-52 pl-0 ' : 'w-0 ']">
+                        <h1 class="font-bold text-xl px-3">{{ userInfo.module }}</h1>
+                        <h1 class="font-semibold text-lg px-3">{{ userInfo.role }}</h1>
+                </div>
             </nav>
     </aside>
 </template>
