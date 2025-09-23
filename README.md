@@ -3,6 +3,14 @@ BACK END : LARAVEL
 FRONT END : VUE JS
 DATABASE : POSTGRESQL
 
+[DATABASE ERD]
+<img width="1609" height="489" alt="image" src="https://github.com/user-attachments/assets/839bedcc-229f-485c-8880-db73418773bc" />
+
+[FOLDER (DEMO APLIKASI | DUMPPOSTGRESQL | TAMPILAN HALAMAN | ERD](<img width="1878" height="911" alt="image" src="https://github.com/user-attachments/assets/d648fb80-de9d-461d-9ca1-512ce9b3f22e" />
+)
+
+[OUTPUT POSTGRESQL DUMP](https://drive.google.com/file/d/1pZ7tLhb0LUWixo-5Rcm-VRNQZX2YTndy/view?usp=sharing)
+
 CARA PENGGUNAAN:
 1. git clone https://github.com/fadhilzamanNow/test-fs.git
 [BACKEND]
@@ -33,8 +41,6 @@ CARA PENGGUNAAN:
 19. PPIC terdapat produk -> buat rencana produksi dalam '/products' -> status rencana produksi hanya dapat diubah oleh manager ppic dalam '/product-plan' -> setiap log perubahan status disimpan dalam '/plan-log'
 20. Rencana Produksi yang sudah disetujui oleh Manager PPIC langsung akan menciptakan record Order Produksi, yang isinya dapat dilihat oleh Staff Produksi '/orders', Status dari Order Produksi hanya dapat dihapus dan diedit oleh Manager Produksi
 21. Setiap perubahan status pada Order Produksi tercermin pada Order Log '/order-log'
-22. Informasi Aplikasi dapat dilihat disini 
-[Link Vidio Demo Aplikasi](https://drive.google.com/file/d/1OllgFWgOdtDogQqNmhLeRvnFSwIXODlK/view?usp=sharing)
 
 
 
