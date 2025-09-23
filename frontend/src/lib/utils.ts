@@ -43,6 +43,38 @@ export interface Order {
     name: string
   }
 
-  // client-only helper
+  number?: number
+}
+
+export interface OrderLog {
+  id: string
+  order_id: string
+  plan: { id: string; plan_name: string }
+  from_status: string
+  to_status: string
+  created_at: string
+  // UI helper
+  number?: number
+}
+
+// src/types/planLog.ts
+export interface PlanLog {
+  id: string
+  plan_id: string
+  from_status: 'pending' | 'approved' | 'rejected'
+  to_status: 'pending' | 'approved' | 'rejected'
+  note?: string | null
+  created_at: string
+  changer?: {
+    id: string
+    username?: string
+    name?: string
+    email?: string
+  }
+  plan?: {
+    id: string
+    plan_name: string
+  }
+  // client-only
   number?: number
 }

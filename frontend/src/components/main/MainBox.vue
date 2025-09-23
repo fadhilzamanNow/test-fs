@@ -4,6 +4,8 @@ import ListProduct from '../product/ListProduct.vue';
 import PlanProduct from '../product/PlanProduct.vue';
 import { watch, watchEffect } from 'vue';
 import ListOrder from '../product/ListOrder.vue';
+import ListOrderLogs from '../product/ListOrderLogs.vue';
+import ListPlanLog from '../product/ListPlanLog.vue';
 
 const path = useRoute<'/(private)/[module]'>()
 
@@ -14,7 +16,10 @@ const path = useRoute<'/(private)/[module]'>()
         <main class="bg-white rounded-md h-full">
              <ListProduct v-if="path.params.module === 'product'" />
              <PlanProduct v-else-if="path.params.module === 'product-plan'" />
+             <ListPlanLog v-else-if="path.params.module === 'plan-log'" />
              <ListOrder v-else-if="path.params.module === 'orders'"/>
+             <ListOrderLogs v-else-if="path.params.module === 'order-log'"/>
+
         </main> 
     </div>
 </template>
