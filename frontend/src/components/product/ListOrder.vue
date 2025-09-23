@@ -7,7 +7,9 @@ import { Order } from '@/lib/utils'
 import { getAllOrders } from '@/lib/order'
 import StatusButton from '../button/StatusButton.vue'
 import OrderUpdate from '../dialog/OrderUpdate.vue'
-
+import { useUser } from '@/store/user';
+import OrderDetail from '../dialog/OrderDetail.vue'
+const userInfo = useUser().user.value
 
 
 
@@ -37,7 +39,7 @@ watchEffect(() => { fetchOrders() })
 
 <template>
   <ContentBox
-    title="Daftar Order"
+    title="Order"
     :search="search"
     :page="page"
     :items-per-page="perPage"
@@ -64,7 +66,8 @@ watchEffect(() => { fetchOrders() })
         <TableCell>{{ o.plan.product.name }}</TableCell>
         <TableCell class="capitalize"><StatusButton :status="o.status" /> </TableCell>
         <TableCell class="flex gap-2">
-            <OrderUpdate :order="o" v-if="o.status !== 'done'" />
+            <OrderDetail :order="o" />
+            <OrderUpdate :order="o"  v-if="userInfo.role === 'Manager' && o.status !== 'done'" />
           <OrderStatusUpdate :order="o" @updated="fetchOrders" />
           <OrderDelete :order="o" @deleted="fetchOrders" />
         </TableCell>

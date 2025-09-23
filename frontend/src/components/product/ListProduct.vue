@@ -15,6 +15,8 @@ import ProductUpdate from '../dialog/ProductUpdate.vue'
 import ProductDelete from '../dialog/ProductDelete.vue'
 import ProductCreate from '../dialog/ProductCreate.vue'
 import { startLoading, stopLoading } from '@/store/loading'
+import { useUser } from '@/store/user';
+const userInfo = useUser().user.value
 const rows = ref<any[]>([])
 const total = ref(7)
 const error = ref<string | null>(null)
@@ -43,7 +45,6 @@ async function fetchProducts() {
 watchEffect(() => {
   fetchProducts()
 })
-
 </script>
 
 <template>
@@ -68,9 +69,9 @@ watchEffect(() => {
                     <TableCell>{{ item.number }}</TableCell>
                     <TableCell>{{ item.name }}</TableCell>
                     <TableCell class="flex gap-2">
-                            <ProductDetail :product="item" />
-                            <ProductUpdate :product="item" @updated="fetchProducts" />
-                            <ProductDelete :product="item" @deleted="fetchProducts" />
+                            <ProductDetail  :product="item" />
+                            <ProductUpdate v-if="userInfo.role === 'Manager'" :product="item" @updated="fetchProducts" />
+                            <ProductDelete v-if="userInfo.role === 'Manager'"" :product="item" @deleted="fetchProducts" />
                     </TableCell>
                 </TableRow>
           </template>

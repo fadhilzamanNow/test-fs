@@ -13,6 +13,7 @@ const logs = ref<OrderLog[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
 
+
 async function fetchLogs() {
   try {
     loading.value = true

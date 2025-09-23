@@ -11,6 +11,8 @@ import PlanCreate from '../dialog/PlanCreate.vue'
 import PlanDetail from '../dialog/PlanDetail.vue'
 import PlanUpdate from '../dialog/PlanUpdate.vue'
 import PlanDelete from '../dialog/PlanDelete.vue'
+import { useUser } from '@/store/user';
+const userInfo = useUser().user.value
 
 // state
 const rows = ref<any[]>([])
@@ -79,8 +81,8 @@ watchEffect(() => {
         <TableCell><StatusButton :status="item.status" /></TableCell>
         <TableCell class="flex gap-1">
             <PlanDetail :plan="item"/>
-            <PlanUpdate v-if="item.status === 'pending'" :plan="item" @updated="fetchPlans" />
-            <PlanDelete :plan="item" @deleted="fetchPlans"/>
+            <PlanUpdate v-if="userInfo.role === 'Manager' && item.status === 'pending'"  :plan="item" @updated="fetchPlans" />
+            <PlanDelete v-if="userInfo.role === 'Manager'" :plan="item" @deleted="fetchPlans"/>
           <!-- later: add PlanUpdate & PlanDelete -->
         </TableCell>
       </TableRow>

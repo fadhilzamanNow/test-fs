@@ -8,12 +8,16 @@ import { OrderLog } from '@/lib/utils'
 import StatusButton from '../button/StatusButton.vue'
 import { format, parseISO } from 'date-fns'
 
+
 const rows = ref<OrderLog[]>([])
 const total = ref(0)
 const search = ref('')
 const page = ref(1)
 const perPage = ref(7)
 const error = ref<string | null>(null)
+
+
+
 
 async function fetchLogs() {
   try {
