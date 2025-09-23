@@ -14,7 +14,13 @@ defineProps<{status : statusRencanaProduksi}>()
      <Button v-else-if="status === 'pending'" class="border border-yellow-500 text-yellow-500 px-4 hover:bg-white/40 cursor-pointer py-2 flex justify-center items-center bg-transparent min-w-25">
         {{ status }}
     </Button>
-    <Button v-else-if="status === 'draft'" class="border border-gray-300 text-gray-300 px-4 py-2 hover:bg-white/40 flex justify-center items-center bg-transparent min-w-25">
+    <Button v-else-if="status === 'waiting'" class="border border-gray-300 text-gray-300 px-4 py-2 hover:bg-white/40 flex justify-center items-center bg-transparent min-w-25">
+        {{ status }}
+    </Button>
+      <Button v-else-if="status === 'done' " class="border border-green-500 text-green-500 px-4 py-2 hover:bg-white/40 cursor-pointer flex justify-center items-center bg-transparent min-w-25">
+        {{ status }}
+    </Button>
+    <Button v-else-if="status === 'in_progress'" class="border border-yellow-500 text-yellow-500 px-4 hover:bg-white/40 cursor-pointer py-2 flex justify-center items-center bg-transparent min-w-25">
         {{ status }}
     </Button>
 </template>

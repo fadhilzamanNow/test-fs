@@ -10,7 +10,11 @@ import { useUser } from '@/store/user';
 const expand = toRef(inject("expand"))
 const sidebarItemList : ItemTypes[] = [
     {label : "Product", icon : Icon, name : "lucide:boxes", mode : "product" },
-    {label : "Production Plan", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"}
+    {label : "Production Plan", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"},
+    {label : "Rencana Log", icon : Icon, name : "ic:round-history", mode : "plan-log"},
+    {label : "Order", icon : Icon, name : "lets-icons:order", mode : "orders"},
+    {label : "Order Log", icon : Icon, name : "ic:outline-history", mode : "order-log"},
+
 ];
 
 const miniExpand = toRef(inject("miniExpand"))

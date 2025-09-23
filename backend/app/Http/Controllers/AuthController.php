@@ -42,12 +42,12 @@ class AuthController extends Controller
 
         // 👇 2. Start the 'try' block for your main logic
         try {
-            $roleName   = ucfirst(trim($data['role_name']));
-            $moduleName = ucfirst(trim($data['module_name']));
+            $roleName   = strtolower(trim($data['role_name']));
+            $moduleName = strtolower(trim($data['module_name']));
 
             // Safely find the models
-            $role   = Role::where("role_name", $roleName)->first();
-            $module = Module::where('module_name', $moduleName)->first(); 
+           $role = Role::whereRaw('LOWER(role_name) = ?', [$roleName])->first();
+            $module = Module::whereRaw('LOWER(module_name) = ?', [$moduleName])->first();
 
             // Check if models were found
             if (!$role || !$module) {

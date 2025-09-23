@@ -1,4 +1,4 @@
-export type statusRencanaProduksi = "draft" | "pending" | "approved" | "rejected";
+export type statusRencanaProduksi = "draft" | "pending" | "approved" | "rejected" | "waiting" | "done" | "in_progress";
 
 export const rencanaProduksiHead = ["No", "Product", "Jumlah", "Tanggal", "Status"]
 

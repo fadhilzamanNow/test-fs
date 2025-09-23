@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = (int) $request->query('per_page', 15);
+        $perPage = (int) $request->query('per_page', 7);
         $orders = Order::with('plan.product')->paginate($perPage);
         return response()->json($orders);
     }

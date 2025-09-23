@@ -36,9 +36,7 @@ use App\Http\Controllers\LookupController;
         Route::patch('/plans/{id}/status',[PlanController::class, 'changeStatus']);
 
 
-       
-
-
+    
     Route::prefix('/orders')->group(function () {
     // list all orders with pagination + search
     Route::get('/', [OrderController::class, 'index']);

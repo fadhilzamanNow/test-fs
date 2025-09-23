@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $q = $request->query('q');
-        $perPage = (int) $request->query('per_page', 20);
+        $perPage = (int) $request->query('per_page', 7);
 
         $query = Product::query()->orderByDesc('created_at');
 

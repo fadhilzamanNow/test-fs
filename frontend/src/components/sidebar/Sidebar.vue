@@ -8,7 +8,10 @@ import { useUser } from '@/store/user';
 
 const sidebarItemList : ItemTypes[] = [
     {label : "Produk", icon : Icon, name : "lucide:boxes", mode : "product" },
-    {label : "Rencana Produksi", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"}
+    {label : "Rencana Produksi", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"},
+    {label : "Rencana Log", icon : Icon, name : "ic:round-history", mode : "plan-log"},
+     {label : "Order", icon : Icon, name : "lets-icons:order", mode : "orders"},
+    {label : "Order Log", icon : Icon, name : "ic:outline-history", mode : "order-log"},
 ];
 
 

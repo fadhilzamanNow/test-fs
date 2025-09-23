@@ -20,4 +20,29 @@ export interface productData {
     name : string,
 }
 
-export type modeType = "product" | "product-plan"  
+export type modeType = "product" | "product-plan"  | "plan-log" | "orders" | "order-log";
+
+// src/types/order.ts
+export type OrderStatus = 'waiting' | 'in_progress' | 'done'
+
+export interface Order {
+  id: string
+  order_no: string
+  plan_id: string
+  quantity: number
+  status: OrderStatus
+  created_at: string
+
+  // expanded
+  plan: {
+    id: string
+    plan_name: string
+  }
+  product: {
+    id: string
+    name: string
+  }
+
+  // client-only helper
+  number?: number
+}

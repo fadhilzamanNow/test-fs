@@ -14,13 +14,13 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         $search  = $request->query('search');
-        $perPage = (int) $request->query('per_page', 15);
+        $perPage = (int) $request->query('per_page', 7);
 
         $query = ProductPlan::with('product')->orderByDesc('created_at');
 
         if ($search) {
             $like = "%{$search}%";
-            $query->whereHas('product', fn($q) => $q->where('name','ilike',$like));
+            $query->where('plan_name', 'ilike', $like);
         }
 
         return response()->json($query->paginate($perPage));
