@@ -37,18 +37,7 @@ const loginSchema = z.object({
   password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 
-definePage({
-  beforeEnter() {
-    const authed = !!localStorage.getItem('auth_token')
-    if (authed) {
-      const userModule = localStorage.getItem('auth_module')
-      if (userModule === 'ppic') return { path: '/product', replace: true }
-      if (userModule === 'production') return { path: '/order', replace: true }
-      return { path: '/', replace: true }
-    }
-    return true
-  },
-})
+
 
 async function onSubmit() {
   // validate with zod
@@ -64,8 +53,8 @@ async function onSubmit() {
     const data = await login({ email: email.value, password: password.value })
 
     // redirect
-   if (user.value?.module === 'ppic') router.replace('/product')
-    else if (user.value?.module === 'production') router.replace('/order')
+   if (user.value?.module === 'PPIC') router.replace('/product')
+    else if (user.value?.module === 'Production') router.replace('/orders')
     else router.replace('/')
   } catch (err: any) {
     errorMessage.value = err.message ?? 'Login gagal'
@@ -74,6 +63,18 @@ async function onSubmit() {
     loading.value = false
   }
 }
+
+definePage({
+  beforeEnter() {
+    const authed = !!localStorage.getItem('auth_token')
+    if (authed) {
+      const userModule = localStorage.getItem('user').module
+      if (userModule === 'PPIC') return { path: '/product', replace: true }
+      if (userModule === 'Production') return { path: '/order', replace: true }
+    }
+    return true
+  },
+})
 </script>
 
 <template>

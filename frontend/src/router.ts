@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
-import { routes} from 'vue-router/auto-routes'
-/* const routes = [
-  { path: '/login', component: Login },
-] */
+import { routes } from 'vue-router/auto-routes'
+import { installGuards } from './router/guard'
 
 export const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+  routes,
 })
+
+installGuards(router)

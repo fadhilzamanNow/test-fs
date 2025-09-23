@@ -1,4 +1,17 @@
 <script setup lang="ts">
+definePage({
+  beforeEnter() {
+    const authed = !!localStorage.getItem('auth_token')
+    if (authed) {
+      const userModule = localStorage.getItem('auth_module')
+      if (userModule === 'ppic') return { path: '/product', replace: true }
+      if (userModule === 'production') return { path: '/order', replace: true }
+      return { path: '/', replace: true }
+    }
+    return true
+  },
+})
+
 import { ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import { z } from 'zod'
@@ -26,6 +39,8 @@ import {
   AlertDialogAction,
 } from '@/components/ui/alert-dialog'
 import { Icon } from '@iconify/vue'
+
+
 
 const name = ref('')
 const email = ref('')

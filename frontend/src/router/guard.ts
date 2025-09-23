@@ -1,48 +1,34 @@
-// src/router/guards.ts
-import type { Router, RouteLocationNormalized } from 'vue-router';
-import http from '../lib/axios';
-import { useAuth } from '../composables/useAuth';
+// router/guard.ts
+import type { Router } from 'vue-router'
+import { useUser, hydrateUser } from '../store/user'
+export function installGuards(router: Router) {
+  const { user } = useUser()
 
-export function installAuthGuards(router: Router): void {
-  const { fetchUser, user } = useAuth();
-  let bootstrapped = false;
+  router.beforeEach((to) => {
+    // ensure user is hydrated on reload
+    if (!user.value) hydrateUser()
 
-  // 401 -> drop token + go to /login
-  http.interceptors.response.use(
-    r => r,
-    err => {
-      if (err?.response?.status === 401) {
-        localStorage.removeItem('auth_token');
-        const cur = router.currentRoute.value;
-        if (cur.path !== '/login') {
-          router.replace({ path: '/login', replace: true });
-        }
+    const token = localStorage.getItem('auth_token')
+    const isAuth = !!token
+
+    // if not logged in and trying private
+    if (!isAuth && to.path !== '/login' && to.path !== '/register') {
+      return { path: '/login', replace: true }
+    }
+
+    if (!user.value) return true // still no user info yet, allow
+
+    // now redirect based on module
+    if (user.value.module === 'PPIC') {
+      if (!['/product', '/product-plan', '/plan-log'].includes(to.path)) {
+        return { path: '/product', replace: true }
       }
-      return Promise.reject(err);
-    }
-  );
-
-  router.beforeEach(async (to: RouteLocationNormalized) => {
-    // Debug (leave while testing)
-    console.log('[guard] to=', to.fullPath, 'meta=', to.meta, 'user?', !!user.value);
-
-    // Bootstrap session once
-    if (!bootstrapped) {
-      bootstrapped = true;
-      try { await fetchUser(); } catch {}
+    } else if (user.value.module === 'Production') {
+      if (!['/orders', '/order-log'].includes(to.path)) {
+        return { path: '/orders', replace: true }
+      }
     }
 
-    // Block visiting /login when already authed
-    if (to.path === '/login' && user.value) {
-      return { path: '/', replace: true };
-    }
-
-    // Only protect routes that declare it
-    if (to.meta?.requiresAuth && !user.value) {
-      // You said you want just /login (no redirect query)
-      return { path: '/login', replace: true };
-    }
-
-    return true;
-  });
+    return true
+  })
 }

@@ -26,3 +26,14 @@ export function clearUser() {
   user.value = null
   localStorage.removeItem('user')
 }
+
+export function hydrateUser() {
+  const raw = localStorage.getItem('user')
+  if (raw) {
+    try {
+      user.value = JSON.parse(raw)
+    } catch {
+      clearUser()
+    }
+  }
+}
