@@ -16,7 +16,7 @@ defineProps<{title : string}>()
 <template>
      <AlertDialog>
     <AlertDialogTrigger>
-         <div class="px-2 py-1 border border-red-500 hover:border-red-500/60  text-red-500 hover:text-red-500/60 flex justify-center text-2xl items-center rounded-sm cursor-pointer gap-1 ">
+         <div class="px-2 py-1 border border-red-500 hover:border-red-500/60  text-red-500 hover:text-red-500/60 hover:bg-white/40 flex justify-center text-2xl items-center rounded-sm cursor-pointer gap-1 ">
                             <Icon icon="mdi:trash" />
                             <span class="hidden sm:block text-xs">Hapus</span>
         </div>

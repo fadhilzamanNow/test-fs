@@ -106,7 +106,6 @@ function goTo(p: number) {
           />
         </div>
 
-        <!-- optional right-side actions (e.g., Create button) -->
         <slot name="create" />
       </div>
 
