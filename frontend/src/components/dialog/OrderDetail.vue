@@ -39,20 +39,14 @@ const props = defineProps<{ order: Order }>()
     <template #content>
       <div class="flex flex-col gap-4 my-4">
 
-        <div class="flex flex-col gap-1">
-          <Label class="font-semibold">No. Order:</Label>
-          <span>{{ props.order.order_no }}</span>
-        </div>
+    
 
         <div class="flex flex-col gap-1">
           <Label class="font-semibold">Rencana:</Label>
           <span>{{ props.order.plan?.plan_name ?? '-' }}</span>
         </div>
 
-        <div class="flex flex-col gap-1">
-          <Label class="font-semibold">Produk:</Label>
-          <span>{{ props.order.product?.name ?? '-' }}</span>
-        </div>
+      
 
         <div class="flex flex-col gap-1">
           <Label class="font-semibold">Jumlah:</Label>

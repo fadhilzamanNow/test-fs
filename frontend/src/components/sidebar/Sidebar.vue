@@ -5,18 +5,18 @@ import { ItemTypes, modeType } from '@/lib/utils';
 import SidebarItem from './SidebarItem.vue';
 import { useAuth } from '@/composables/useAuth';
 import { useUser } from '@/store/user';
+const userInfo = useUser().user.value
 
 const sidebarItemList : ItemTypes[] = [
-    {label : "Produk", icon : Icon, name : "lucide:boxes", mode : "product" },
-    {label : "Rencana Produksi", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan"},
-    {label : "Rencana Log", icon : Icon, name : "ic:round-history", mode : "plan-log"},
-     {label : "Order", icon : Icon, name : "lets-icons:order", mode : "orders"},
-    {label : "Order Log", icon : Icon, name : "ic:outline-history", mode : "order-log"},
+    {label : "Produk", icon : Icon, name : "lucide:boxes", mode : "product", module : "PPIC" },
+    {label : "Rencana Produksi", icon : Icon, name : "fa7-regular:folder-closed", mode : "product-plan", module : "PPIC"},
+    {label : "Rencana Log", icon : Icon, name : "ic:round-history", mode : "plan-log", module : "PPIC"},
+     {label : "Order", icon : Icon, name : "lets-icons:order", mode : "orders", module : "Production"},
+    {label : "Order Log", icon : Icon, name : "ic:outline-history", mode : "order-log", module : "Production"},
 ];
 
 
 const expand = toRef(inject('expand'))
-const userInfo = useUser().user.value
 
 </script>
 
@@ -24,7 +24,9 @@ const userInfo = useUser().user.value
         <aside class="h-[calc(100vh-4rem)] w-0 invisible sm:min-w-max sm:max-w-max sm:visible sticky top-16 transition-all opacity-0 sm:opacity-100">
                 <nav class="h-full flex flex-col bg-white border-r shadow-sm">
                     <ul class="flex-1 px-3">
-                        <SidebarItem v-for="(item,i) in sidebarItemList" :key="i" :label="item.label" :icon="item.icon" :name="item.name" :mode="item.mode" />
+                        <li  v-for="(item,i) in sidebarItemList" :key="i" >
+                            <SidebarItem :label="item.label" :icon="item.icon" :name="item.name" :mode="item.mode" v-if="item.module === userInfo.module" />
+                        </li>
                     </ul>
                     <div :class="['transition-all overflow-hidden ', expand ? 'w-52 pl-0 ' : 'w-0 ']">
                         <h1 class="font-bold text-xl px-3">{{ userInfo.module }}</h1>

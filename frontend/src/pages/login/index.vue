@@ -20,6 +20,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from '@/components/ui/alert-dialog'
+import { Icon } from '@iconify/vue'
 
 const { user } = useUser()
 const email = ref('')
@@ -27,7 +28,7 @@ const password = ref('')
 const loading = ref(false)
 const showError = ref(false)       // controls dialog visibility
 const errorMessage = ref('')       // message for the dialog
-
+const showPassword = ref(false);
 const router = useRouter()
 const route = useRoute()
 
@@ -81,6 +82,7 @@ async function onSubmit() {
       class="w-full max-w-md min-h-70 bg-white mx-auto flex flex-col px-4 py-6 rounded-xl gap-6 items-center"
     >
       <form class="flex flex-col gap-6 w-full" @submit.prevent="onSubmit">
+         <h1 class="font-extrabold text-2xl text-center">Elitech Vision</h1>
         <div class="flex flex-col gap-2 w-full">
           <Label for="email">Email</Label>
           <Input id="email" type="text" v-model="email" placeholder="Your Email" />
@@ -88,12 +90,18 @@ async function onSubmit() {
 
         <div class="flex flex-col gap-2 w-full">
           <Label for="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            v-model="password"
-            placeholder="Your Password"
-          />
+          <div class="relative">
+              <Input
+                id="password"
+                :type="!showPassword ? 'password' : 'text'"
+                v-model="password"
+                placeholder="Your Password"
+              />
+            <div class="absolute top-1/2 -translate-y-1/2 right-2" @click="showPassword = !showPassword">
+                    <Icon icon="gravity-ui:eye" v-if="!showPassword" />
+                    <Icon icon="gravity-ui:eye-slash" v-else />
+                </div>
+          </div>
         </div>
 
         <Button class="w-full" type="submit" :disabled="loading">

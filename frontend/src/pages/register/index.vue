@@ -25,13 +25,14 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from '@/components/ui/alert-dialog'
+import { Icon } from '@iconify/vue'
 
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const role = ref('')
 const moduleName = ref('')
-
+const showPassword = ref(false);
 const loading = ref(false)
 
 // dialogs
@@ -103,6 +104,8 @@ function handleSuccessClose() {
       class="w-full max-w-md min-h-70 bg-white mx-auto flex flex-col px-4 py-6 rounded-xl gap-6 items-center"
     >
       <form class="flex flex-col gap-6 w-full" @submit.prevent="onSubmit">
+        <h1 class="font-extrabold text-2xl text-center">Elitech Vision</h1>
+
         <div class="flex flex-col gap-2 w-full">
           <Label for="name">Name</Label>
           <Input id="name" v-model="name" type="text" placeholder="Your Name" />
@@ -113,7 +116,13 @@ function handleSuccessClose() {
         </div>
         <div class="flex flex-col gap-2 w-full">
           <Label>Password</Label>
-          <Input v-model="password" type="password" placeholder="Your Password" />
+          <div class="relative">
+              <Input v-model="password" :type="!showPassword ? 'password' : 'text'" placeholder="Your Password" />
+                <div class="absolute top-1/2 -translate-y-1/2 right-2" @click="showPassword = !showPassword">
+                    <Icon icon="gravity-ui:eye" v-if="!showPassword" />
+                    <Icon icon="gravity-ui:eye-slash" v-else />
+                </div>
+            </div>
         </div>
         <div class="flex flex-col gap-2 w-full">
           <Label>Jabatan</Label>

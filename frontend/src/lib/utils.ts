@@ -12,6 +12,7 @@ export interface ItemTypes {
     icon : Component,
     name : string,
     mode : modeType
+    module : "PPIC" | "Production"
 }
 
 export interface productData {
