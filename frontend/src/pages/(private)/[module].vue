@@ -3,11 +3,23 @@
 import MainBox from '@/components/main/MainBox.vue';
 import Navbar from '@/components/navbar/Navbar.vue';
 import Overlay from '@/components/overlay/Overlay.vue';
+import OverlayLoading from '@/components/overlay/OverlayLoading.vue';
 import MiniSidebar from '@/components/sidebar/MiniSidebar.vue';
 import Sidebar from '@/components/sidebar/Sidebar.vue';
 import { modeType } from '@/lib/utils';
 import { provide, ref } from 'vue';
-import { useRoute } from 'vue-router';
+
+definePage({
+  beforeEnter(to) {
+    const authed = !!localStorage.getItem('auth_token');
+    if (!authed) {
+      // return a redirect location; do NOT router.push here
+      return { path: '/login', replace: true };
+    }
+    // returning void/true lets navigation continue
+    return true;
+  },
+});
 
 const expand = ref<boolean>(false)
 const selectedMode = ref<modeType>("product")
@@ -20,12 +32,15 @@ provide("miniExpand", miniExpand)
 
 <template>
   <main class="min-h-screen bg-slate-200 flex flex-col">
+    
     <Navbar class="h-16" />
     <div class="flex-1 flex">
         <Sidebar />
         <MainBox />
     </div>
     <Overlay />
+    <OverlayLoading />
     <MiniSidebar />
+    
   </main>
 </template>

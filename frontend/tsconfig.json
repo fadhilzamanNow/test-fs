@@ -12,6 +12,10 @@
     "paths": {
       "@/*" : ["./src/*"]
     },
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2015","dom"],
+    
     "types":["unplugin-vue-router/client"]
   },
   

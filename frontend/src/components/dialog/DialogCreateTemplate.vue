@@ -33,7 +33,7 @@ defineProps<{title : string}>()
       </AlertDialogDescription>
       <AlertDialogFooter>
         <AlertDialogCancel>Tutup</AlertDialogCancel>
-        <AlertDialogAction>Tambah</AlertDialogAction>
+        <slot name="send"></slot>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
