@@ -1,0 +1,3 @@
+{
+  "cli": "tinker --execute=\"var_export(config('database.connections.pgsql'));\""
+}
